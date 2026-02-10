@@ -5,6 +5,11 @@
     padding: 0; 
 }
 
+html {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 body {
     font-family: 'Prompt', sans-serif;
     background-color: #ffffff;
@@ -18,6 +23,8 @@ body {
     position: relative;
     background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
     overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
 }
 
 /* Animated Background Pattern */
@@ -214,8 +221,8 @@ body::before {
 /* Container */
 .container {
     width: 100%; 
+    max-width: 100%;
     text-align: center;
-    max-width: 600px;
     background-color: #fff; 
     padding: 40px;
     border: 1px solid #e0e0e0;
@@ -224,8 +231,9 @@ body::before {
 /* Dashboard Container Enhancements */
 .dashboard-container {
     position: relative;
-    overflow: visible;
+    overflow: hidden;
     max-width: 600px;
+    width: 100%;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: 0 10px 50px rgba(0,0,0,0.05);
@@ -372,6 +380,13 @@ h1 {
 
 .shoe-decoration.right {
     animation: float 8s ease-in-out infinite;
+}
+
+/* Hide shoe decorations on mobile to prevent overflow */
+@media (max-width: 768px) {
+    .shoe-decoration {
+        display: none;
+    }
 }
 
 /* Grid จัดวางปุ่ม */
@@ -629,19 +644,7 @@ h1 {
         transform: translateY(-5px);
     }
 }
-.promo-link-wrapper {
-    text-decoration: none; /* ลบขีดเส้นใต้ */
-    color: inherit;        /* ใช้สีเดิมของข้อความ ไม่ให้เป็นสีน้ำเงินลิงค์ */
-    display: block;        /* ทำให้พื้นที่คลิกครอบคลุมทั้งแบนเนอร์ */
-    cursor: pointer;       /* เปลี่ยนเมาส์เป็นรูปมือเมื่อชี้ */
-}
 
-/* (Optional) เพิ่มเอฟเฟกต์ตอนเอาเมาส์ชี้ เพื่อให้รู้ว่ากดได้ */
-.promo-link-wrapper:hover .promo-banner {
-    transform: translateY(-2px); /* ขยับขึ้นเล็กน้อย */
-    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3); /* เพิ่มเงาสีชมพู */
-    transition: all 0.3s ease;
-}
 .valentine-promo .promo-desc {
     font-size: 13px;
     font-weight: 400;
@@ -970,13 +973,21 @@ header {
 
 /* Responsive */
 @media (max-width: 480px) { 
+    body {
+        padding: 10px;
+    }
     .row { 
         grid-template-columns: 1fr; 
         gap: 0; 
     } 
     .container { 
-        padding: 20px; 
-        border: none; 
+        padding: 20px;
+        border: none;
+        width: 100%;
+        max-width: 100%;
+    }
+    .dashboard-container {
+        padding: 20px;
     }
     .menu-card .icon-box {
         font-size: 36px;
@@ -1004,6 +1015,10 @@ header {
     .shoe-print {
         font-size: 20px;
     }
+    .valentine-promo {
+        padding: 20px 15px;
+        margin: 20px 0;
+    }
     .valentine-promo .promo-title {
         font-size: 16px;
     }
@@ -1025,6 +1040,12 @@ header {
 
 /* Responsive มือถือ: ปรับเป็น 1 คอลัมน์ถ้าจอเล็กมาก */
 @media (max-width: 350px) {
+    body {
+        padding: 5px;
+    }
+    .container {
+        padding: 15px;
+    }
     .menu-grid {
         grid-template-columns: 1fr;
     }
