@@ -599,7 +599,19 @@ h1 {
         box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
     }
 }
+.promo-link-wrapper {
+    text-decoration: none; /* ลบขีดเส้นใต้ */
+    color: inherit;        /* ใช้สีเดิมของข้อความ ไม่ให้เป็นสีน้ำเงินลิงค์ */
+    display: block;        /* ทำให้พื้นที่คลิกครอบคลุมทั้งแบนเนอร์ */
+    cursor: pointer;       /* เปลี่ยนเมาส์เป็นรูปมือเมื่อชี้ */
+}
 
+/* (Optional) เพิ่มเอฟเฟกต์ตอนเอาเมาส์ชี้ เพื่อให้รู้ว่ากดได้ */
+.promo-link-wrapper:hover .promo-banner {
+    transform: translateY(-2px); /* ขยับขึ้นเล็กน้อย */
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3); /* เพิ่มเงาสีชมพู */
+    transition: all 0.3s ease;
+}
 .valentine-promo .promo-title {
     font-size: 18px;
     font-weight: 700;
