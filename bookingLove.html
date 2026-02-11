@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking - Valentine's Edition 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: linear-gradient(135deg, #fff5f8 0%, #ffe4ec 50%, #ffd6e0 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Floating Hearts Background */
+        body::before {
+            content: "💕";
+            position: fixed;
+            top: 10%;
+            left: 5%;
+            font-size: 30px;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+        body::after {
+            content: "💗";
+            position: fixed;
+            top: 60%;
+            right: 8%;
+            font-size: 40px;
+            opacity: 0.2;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(255, 105, 135, 0.15);
+            border: 2px solid rgba(255, 182, 193, 0.3);
+            position: relative;
+        }
+
+        .container::before {
+            content: "💕";
+            position: absolute;
+            top: -15px;
+            right: 30px;
+            font-size: 30px;
+        }
+
+        .back-link-float {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #ff6b95 0%, #ff8fab 100%);
+            padding: 10px 18px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            font-size: 14px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(255, 107, 149, 0.4);
+            z-index: 9999;
+            transition: all 0.3s ease;
+        }
+
+        .back-link-float:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 149, 0.5);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header .header-logo {
+            filter: drop-shadow(0 4px 8px rgba(255, 105, 135, 0.2));
+        }
+
+        header p {
+            color: #ff6b95;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .valentine-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b95, #ff8fab);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        /* Pair Selector */
+        .pair-selector {
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 2px solid #ffb6c1;
+        }
+
+        .pair-selector h3 {
+            color: #d63384;
+            margin-bottom: 15px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pair-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .pair-btn {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ffb6c1;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .pair-btn:hover {
+            border-color: #ff6b95;
+            transform: translateY(-2px);
+        }
+
+        .pair-btn.active {
+            background: linear-gradient(135deg, #ff6b95 0%, #ff8fab 100%);
+            border-color: #ff6b95;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 149, 0.4);
+        }
+
+        .pair-btn .emoji {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .pair-btn .discount {
+            font-size: 11px;
+            color: #ff6b95;
+            margin-top: 5px;
+        }
+
+        .pair-btn.active .discount {
+            color: #fff;
+        }
+
+        /* Shoe Card */
+        .shoe-card {
+            background: linear-gradient(135deg, #fff8fa 0%, #fff0f5 100%);
+            border: 2px solid #ffc0cb;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .shoe-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px dashed #ffb6c1;
+        }
+
+        .shoe-card-header .number {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #ff6b95, #ff8fab);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .shoe-card-header h4 {
+            color: #d63384;
+            font-size: 16px;
+        }
+
+        #shoe2Card {
+            display: none;
+            animation: slideDown 0.4s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #ffc0cb;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: 'Prompt', sans-serif;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b95;
+            box-shadow: 0 0 0 4px rgba(255, 107, 149, 0.1);
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #ffc0cb, transparent);
+            margin: 25px 0;
+        }
+
+        /* Add-on Section */
+        .addon-section {
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 20px;
+            border: 2px solid #ffb6c1;
+        }
+
+        .addon-section h3 {
+            color: #d63384;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .radio-item,
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: white;
+            border: 2px solid #ffc0cb;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .radio-item:hover,
+        .checkbox-item:hover {
+            border-color: #ff6b95;
+            background: #fff5f8;
+        }
+
+        .radio-item input,
+        .checkbox-item input {
+            margin-right: 12px;
+            accent-color: #ff6b95;
+            width: 18px;
+            height: 18px;
+        }
+
+        .price {
+            margin-left: auto;
+            color: #ff6b95;
+            font-weight: 500;
+        }
+
+        /* Total Price Box */
+        .total-price-box {
+            background: linear-gradient(135deg, #ff6b95 0%, #ff8fab 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 25px;
+            box-shadow: 0 8px 25px rgba(255, 107, 149, 0.3);
+        }
+
+        .total-price-box .price-text {
+            font-size: 42px;
+            font-weight: 600;
+            display: block;
+            margin: 10px 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .discount-info {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        /* Payment Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 35px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            animation: modalPop 0.3s ease;
+            border: 3px solid #ffc0cb;
+        }
+
+        @keyframes modalPop {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h3 {
+            color: #d63384;
+            margin-bottom: 10px;
+        }
+
+        .modal-content .qr-img {
+            border-radius: 16px;
+            margin: 20px 0;
+            border: 3px solid #ffc0cb;
+        }
+
+        /* Buttons */
+        .btn-payment {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff6b95 0%, #ff8fab 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Prompt', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 149, 0.4);
+        }
+
+        .btn-payment:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 149, 0.5);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff6b95 0%, #d63384 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Prompt', sans-serif;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(214, 51, 132, 0.4);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .btn-close-modal {
+            background: #f0f0f0;
+            color: #666;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-family: 'Prompt', sans-serif;
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 240, 245, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+        }
+
+        .spinner-box {
+            text-align: center;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #ffc0cb;
+            border-top-color: #ff6b95;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .spinner-box p {
+            color: #d63384;
+            font-weight: 500;
+        }
+
+        .note-text {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        /* File Input Styling */
+        input[type="file"] {
+            padding: 12px;
+            background: #fff5f8;
+            border: 2px dashed #ffc0cb !important;
+        }
+
+        /* Valentine Decorations */
+        .heart-decoration {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link-float">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>หน้าหลัก</span>
+    </a>
+
+    <div class="container">
+        <header>
+            <img width="200" height="150" src="image/TR-removebg-preview.png" alt="Shoe Service Logo" class="header-logo">
+            <p>💕 จองคิวซักรองเท้า 💕</p>
+            <span class="valentine-badge">🌹 Valentine's Edition 🌹</span>
+        </header>
+
+        <form id="bookingForm">
+            <!-- Phone -->
+            <div class="form-group">
+                <label>📱 เบอร์โทร (Phone)</label>
+                <input type="tel" name="phone" required placeholder="0xx-xxx-xxxx">
+            </div>
+
+            <hr>
+
+            <!-- Pair Selector -->
+            <div class="pair-selector">
+                <h3>👟 เลือกจำนวนรองเท้า</h3>
+                <div class="pair-buttons">
+                    <div class="pair-btn active" onclick="selectPair(1)">
+                        <span class="emoji">👟</span>
+                        <span>1 คู่</span>
+                        <div class="discount">ราคาปกติ</div>
+                    </div>
+                    <div class="pair-btn" onclick="selectPair(2)">
+                        <span class="emoji">👟👟</span>
+                        <span>2 คู่</span>
+                        <div class="discount">💕 ลด 10% สำหรับคู่รัก!</div>
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" name="pair_count" id="pairCount" value="1">
+
+            <!-- Shoe 1 -->
+            <div class="shoe-card" id="shoe1Card">
+                <div class="shoe-card-header">
+                    <div class="number">1</div>
+                    <h4>รองเท้าคู่ที่ 1 💗</h4>
+                </div>
+
+                <div class="form-group">
+                    <label>ประเภทรองเท้า (Shoe Type)</label>
+                    <select name="shoe_type_1" id="shoeType1" required onchange="calculateTotal()">
+                        <option value="">-- กรุณาเลือก --</option>
+                        <option value="basketball" data-price="189">รองเท้าบาส (Basketball) - 189฿</option>
+                        <option value="sneakers" data-price="189">รองเท้าผ้าใบ (Sneakers) - 189฿</option>
+                        <option value="suede" data-price="289">รองเท้าผ้าใบหนังกลับ (Suede) - 289฿</option>
+                        <option value="leather" data-price="289">รองเท้าหนัง (Leather) - 289฿</option>
+                        <option value="sandals" data-price="79">รองเท้าแตะ (Sandals) - 79฿</option>
+                        <option value="other" data-price="189">อื่นๆ (Other) - 189฿</option>
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label>แบรนด์ (Brand)</label>
+                        <select name="brand_1" id="brand1" onchange="toggleOtherInput(1)">
+                            <option value="">-- กรุณาเลือก --</option>
+                            <option value="nike">Nike</option>
+                            <option value="adidas">Adidas</option>
+                            <option value="puma">Puma</option>
+                            <option value="mlb">MLB</option>
+                            <option value="converse">Converse</option>
+                            <option value="other">อื่นๆ (โปรดระบุ)</option>
+                        </select>
+                        <input type="text" name="brand_other_1" id="otherBrandInput1" 
+                               placeholder="กรุณาระบุยี่ห้อ..." style="display: none; margin-top: 10px;">
+                    </div>
+                    <div class="form-group">
+                        <label>ชื่อรุ่น (Model) <span style="color:#ff8fab; font-size:12px;">(ไม่บังคับ)</span></label>
+                        <input type="text" name="model_1" placeholder="ระบุรุ่น (ถ้าทราบ)">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label> รูปรองเท้าคู่ที่ 1</label>
+                    <input type="file" id="productPicture1" accept="image/*" required>
+                </div>
+            </div>
+
+            <!-- Shoe 2 -->
+            <div class="shoe-card" id="shoe2Card">
+                <div class="shoe-card-header">
+                    <div class="number">2</div>
+                    <h4>รองเท้าคู่ที่ 2 💗</h4>
+                </div>
+
+                <div class="form-group">
+                    <label>ประเภทรองเท้า (Shoe Type)</label>
+                    <select name="shoe_type_2" id="shoeType2" onchange="calculateTotal()">
+                        <option value="">-- กรุณาเลือก --</option>
+                        <option value="basketball" data-price="189">รองเท้าบาส (Basketball) - 189฿</option>
+                        <option value="sneakers" data-price="189">รองเท้าผ้าใบ (Sneakers) - 189฿</option>
+                        <option value="suede" data-price="289">รองเท้าผ้าใบหนังกลับ (Suede) - 289฿</option>
+                        <option value="leather" data-price="289">รองเท้าหนัง (Leather) - 289฿</option>
+                        <option value="sandals" data-price="79">รองเท้าแตะ (Sandals) - 79฿</option>
+                        <option value="other" data-price="189">อื่นๆ (Other) - 189฿</option>
+                    </select>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label>แบรนด์ (Brand)</label>
+                        <select name="brand_2" id="brand2" onchange="toggleOtherInput(2)">
+                            <option value="">-- กรุณาเลือก --</option>
+                            <option value="nike">Nike</option>
+                            <option value="adidas">Adidas</option>
+                            <option value="puma">Puma</option>
+                            <option value="mlb">MLB</option>
+                            <option value="converse">Converse</option>
+                            <option value="other">อื่นๆ (โปรดระบุ)</option>
+                        </select>
+                        <input type="text" name="brand_other_2" id="otherBrandInput2" 
+                               placeholder="กรุณาระบุยี่ห้อ..." style="display: none; margin-top: 10px;">
+                    </div>
+                    <div class="form-group">
+                        <label>ชื่อรุ่น (Model) <span style="color:#ff8fab; font-size:12px;">(ไม่บังคับ)</span></label>
+                        <input type="text" name="model_2" placeholder="ระบุรุ่น (ถ้าทราบ)">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label> รูปรองเท้าคู่ที่ 2</label>
+                    <input type="file" id="productPicture2" accept="image/*">
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Date & Address -->
+            <div class="row">
+                <div class="form-group">
+                    <label>📅 วันรับรองเท้า</label>
+                    <input type="date" name="pickup_date" required>
+                </div>
+                <div class="form-group">
+                    <label>📅 วันคืนรองเท้า <span style="color:#ff8fab; font-size:12px;">*ขั้นต่ำ 3 วัน</span></label>
+                    <input type="date" name="return_date" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>📍 ที่อยู่ / Google Maps</label>
+                <textarea name="address" rows="3" placeholder="แปะลิงก์ Google Maps หรือที่อยู่จัดส่ง..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>📝 Note / หมายเหตุเพิ่มเติม</label>
+                <textarea name="note" rows="2" placeholder="เช่น ขอสะอาดๆ, งานด่วน"></textarea>
+            </div>
+
+            <hr>
+
+            <!-- Add-on Services -->
+            <div class="addon-section">
+                <h3> บริการเพิ่มเติม (Add-on Services)</h3>
+                
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>⚡ ระดับความด่วน (Service Speed)</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="service_speed" value="0" checked onchange="calculateTotal()">
+                            ปกติ (Standard) <span class="price">+0.-</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="service_speed" value="89" onchange="calculateTotal()">
+                            ด่วน 1-2 วัน (Fast Track) <span class="price">+89.-</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="service_speed" value="129" onchange="calculateTotal()">
+                            ด่วนพิเศษ 1 วัน (Super Fast) <span class="price">+129.-</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label> บริการพิเศษ (Extra Care)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="chk_yellow" value="299" onchange="calculateTotal()">
+                            แก้พื้นเหลือง (Un-Yellowing) <span class="price">+299.-</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="chk_ozone" value="159" onchange="calculateTotal()">
+                            อบโอโซนฆ่าเชื้อ (Ozone) <span class="price">+159.-</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="total-price-box">
+                    <span>💕 ราคารวมทั้งสิ้น (Total)</span>
+                    <span class="price-text" id="displayTotal">189</span>
+                    <span style="font-size:18px;">บาท</span>
+                    <div class="discount-info" id="discountInfo" style="display: none;">
+                         ได้รับส่วนลด 10% สำหรับคู่รัก!
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn-payment" onclick="openPaymentModal()">
+                 ดำเนินการชำระเงิน
+            </button>
+
+            <!-- Payment Modal -->
+            <div id="paymentModal" class="modal">
+                <div class="modal-content">
+                    <h3> ชำระเงิน (Payment)</h3>
+                    <p>กรุณาสแกน QR Code เพื่อชำระค่าบริการ</p>
+                    
+                    <img width="230" src="image/ชำระเงิน.png" alt="PromptPay QR" class="qr-img">
+                    
+                    <div class="form-group" style="text-align: left; margin-top: 20px;">
+                        <label>📎 แนบสลิปโอนเงิน (Upload Slip)</label>
+                        <input type="file" id="slipFile" accept="image/*" required>
+                        <p class="note-text">*ไฟล์จะถูกเก็บไว้ใน Google Drive ของร้าน</p>
+                    </div>
+                    
+                    <button type="submit" id="finalSubmit" class="btn-submit">
+                         ยืนยันและส่งข้อมูล
+                    </button>
+                    <button type="button" class="btn-close-modal" onclick="closePaymentModal()">
+                        ยกเลิก
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="spinner-box">
+            <div class="spinner"></div>
+            <p> กำลังดำเนินการ...</p>
+            <p style="font-size: 12px; color: #ff8fab;">กรุณารอสักครู่ อย่าปิดหน้าต่าง</p>
+        </div>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyoPBfY70KXz05VX25r9ImIRQ_8eYlvWDCMWAz7TvN9mAk5UOujEYdi0VgYrc_V7KHXCg/exec';
+        const form = document.getElementById('bookingForm');
+        const btn = document.getElementById('finalSubmit');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        
+        let selectedPairs = 1;
+    
+        // Select number of pairs
+        function selectPair(num) {
+            selectedPairs = num;
+            document.getElementById('pairCount').value = num;
+            
+            // Update button styles
+            document.querySelectorAll('.pair-btn').forEach((btn, index) => {
+                if (index + 1 === num) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Show/hide shoe 2 card
+            const shoe2Card = document.getElementById('shoe2Card');
+            const productPicture2 = document.getElementById('productPicture2');
+            const shoeType2 = document.getElementById('shoeType2');
+            
+            if (num === 2) {
+                shoe2Card.style.display = 'block';
+                productPicture2.setAttribute('required', 'required');
+                shoeType2.setAttribute('required', 'required');
+            } else {
+                shoe2Card.style.display = 'none';
+                productPicture2.removeAttribute('required');
+                shoeType2.removeAttribute('required');
+                // Clear values when hiding
+                shoeType2.value = '';
+                document.getElementById('brand2').value = '';
+                document.querySelector('[name="model_2"]').value = '';
+            }
+            
+            // Show/hide discount info
+            document.getElementById('discountInfo').style.display = num === 2 ? 'inline-block' : 'none';
+            
+            calculateTotal();
+        }
+    
+        // Toggle other brand input
+        function toggleOtherInput(shoeNum) {
+            const selectBox = document.getElementById('brand' + shoeNum);
+            const otherInput = document.getElementById('otherBrandInput' + shoeNum);
+    
+            if (selectBox.value === 'other') {
+                otherInput.style.display = 'block';
+                otherInput.setAttribute('required', 'required');
+            } else {
+                otherInput.style.display = 'none';
+                otherInput.value = '';
+                otherInput.removeAttribute('required');
+            }
+        }
+    
+        // Calculate total price
+        function calculateTotal() {
+            let total = 0;
+            
+            // Shoe 1 price
+            const shoeType1 = document.getElementById('shoeType1');
+            if (shoeType1.selectedIndex > 0) {
+                const price1 = parseInt(shoeType1.options[shoeType1.selectedIndex].dataset.price) || 189;
+                total += price1;
+            } else {
+                total += 189; // Default price
+            }
+            
+            // Shoe 2 price (if selected)
+            if (selectedPairs === 2) {
+                const shoeType2 = document.getElementById('shoeType2');
+                if (shoeType2.selectedIndex > 0) {
+                    const price2 = parseInt(shoeType2.options[shoeType2.selectedIndex].dataset.price) || 189;
+                    total += price2;
+                } else {
+                    total += 189; // Default price
+                }
+            }
+            
+            // Service speed
+            const speedRadios = document.getElementsByName('service_speed');
+            for (const radio of speedRadios) {
+                if (radio.checked) {
+                    total += parseInt(radio.value);
+                    break;
+                }
+            }
+            
+            // Extra services
+            const chkYellow = document.getElementById('chk_yellow');
+            const chkOzone = document.getElementById('chk_ozone');
+            if (chkYellow && chkYellow.checked) total += 299;
+            if (chkOzone && chkOzone.checked) total += 159;
+            
+            // Apply 10% discount for 2 pairs (Valentine's special!)
+            if (selectedPairs === 2) {
+                total = Math.round(total * 0.9);
+            }
+            
+            document.getElementById('displayTotal').innerText = total.toLocaleString();
+            return total;
+        }
+    
+        // ✅ แก้ไขฟังก์ชันนี้ - Open payment modal
+        function openPaymentModal() {
+            // Validate manually
+            let errors = [];
+            
+            // Check phone
+            if (!form.phone.value.trim()) {
+                errors.push("กรุณากรอกเบอร์โทร");
+            }
+            
+            // Check shoe type 1
+            if (!form.shoe_type_1.value) {
+                errors.push("กรุณาเลือกประเภทรองเท้าคู่ที่ 1");
+            }
+            
+            // Check product picture 1
+            const productPicture1 = document.getElementById('productPicture1');
+            if (!productPicture1.files || !productPicture1.files[0]) {
+                errors.push("กรุณาแนบรูปรองเท้าคู่ที่ 1");
+            }
+            
+            // Check shoe 2 if selected 2 pairs
+            if (selectedPairs === 2) {
+                if (!form.shoe_type_2.value) {
+                    errors.push("กรุณาเลือกประเภทรองเท้าคู่ที่ 2");
+                }
+                
+                const productPicture2 = document.getElementById('productPicture2');
+                if (!productPicture2.files || !productPicture2.files[0]) {
+                    errors.push("กรุณาแนบรูปรองเท้าคู่ที่ 2");
+                }
+            }
+            
+            // Check brand other input
+            if (form.brand_1.value === 'other' && !form.brand_other_1.value.trim()) {
+                errors.push("กรุณาระบุยี่ห้อรองเท้าคู่ที่ 1");
+            }
+            
+            if (selectedPairs === 2 && form.brand_2.value === 'other' && !form.brand_other_2.value.trim()) {
+                errors.push("กรุณาระบุยี่ห้อรองเท้าคู่ที่ 2");
+            }
+            
+            // Check dates
+            if (!form.pickup_date.value) {
+                errors.push("กรุณาเลือกวันรับรองเท้า");
+            }
+            
+            if (!form.return_date.value) {
+                errors.push("กรุณาเลือกวันคืนรองเท้า");
+            }
+            
+            // Check address
+            if (!form.address.value.trim()) {
+                errors.push("กรุณากรอกที่อยู่");
+            }
+            
+            // If there are errors, show them
+            if (errors.length > 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: ' กรุณากรอกข้อมูลให้ครบ',
+                    html: errors.map(e => `• ${e}`).join('<br>'),
+                    confirmButtonColor: '#ff6b95'
+                });
+                return;
+            }
+            
+            // All valid - open modal
+            document.getElementById('paymentModal').style.display = 'flex';
+        }
+    
+        // Close payment modal
+        function closePaymentModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+    
+        // Close modal when clicking outside
+        document.getElementById('paymentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePaymentModal();
+            }
+        });
+    
+        // Form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Check slip file
+            const slipInput = document.getElementById('slipFile');
+            if (!slipInput.files || !slipInput.files[0]) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: ' กรุณาแนบสลิป',
+                    text: 'กรุณาแนบสลิปโอนเงินก่อนยืนยัน',
+                    confirmButtonColor: '#ff6b95'
+                });
+                return;
+            }
+            
+            btn.innerHTML = " กำลังอัปโหลด...";
+            btn.disabled = true;
+            loadingOverlay.style.display = 'flex';
+    
+            const toBase64 = file => new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve({
+                    base64: reader.result.split(',')[1],
+                    name: file.name,
+                    type: file.type
+                });
+                reader.onerror = error => reject(error);
+            });
+    
+            try {
+                const productInput1 = document.getElementById('productPicture1');
+                const productInput2 = document.getElementById('productPicture2');
+    
+                const productFileData1 = await toBase64(productInput1.files[0]);
+                const slipFileData = await toBase64(slipInput.files[0]);
+                
+                let productFileData2 = null;
+                if (selectedPairs === 2 && productInput2.files[0]) {
+                    productFileData2 = await toBase64(productInput2.files[0]);
+                }
+    
+                // Get service speed text
+                const speedRadio = document.querySelector('input[name="service_speed"]:checked');
+                let serviceSpeedText = "ปกติ (Standard)";
+                if (speedRadio) {
+                    serviceSpeedText = speedRadio.parentElement.innerText.replace(/\s+/g, ' ').trim();
+                }
+    
+                // Get addons
+                let addons = [];
+                if (document.getElementById('chk_yellow')?.checked) addons.push("แก้พื้นเหลือง");
+                if (document.getElementById('chk_ozone')?.checked) addons.push("อบโอโซน");
+                const addonsText = addons.length > 0 ? addons.join(", ") : "-";
+    
+                // Get brand values
+                const brand1 = form.brand_1.value === 'other' ? form.brand_other_1.value : form.brand_1.value;
+                const brand2 = selectedPairs === 2 ? 
+                    (form.brand_2.value === 'other' ? form.brand_other_2.value : form.brand_2.value) : '';
+    
+                const payload = {
+                    phone: form.phone.value,
+                    pair_count: selectedPairs,
+                    
+                    // Shoe 1
+                    shoe_type_1: form.shoe_type_1.value,
+                    brand_1: brand1,
+                    model_1: form.model_1.value || '-',
+                    
+                    // Shoe 2
+                    shoe_type_2: selectedPairs === 2 ? form.shoe_type_2.value : '-',
+                    brand_2: brand2 || '-',
+                    model_2: selectedPairs === 2 ? (form.model_2.value || '-') : '-',
+                    
+                    pickup_date: form.pickup_date.value,
+                    return_date: form.return_date.value,
+                    address: form.address.value,
+                    note: form.note.value || '-',
+                    service_speed: serviceSpeedText,
+                    addon_services: addonsText,
+                    total_price: calculateTotal(),
+                    valentine_discount: selectedPairs === 2 ? '10%' : 'ไม่มี',
+                    
+                    // Files
+                    productFile1: productFileData1.base64,
+                    productFileName1: productFileData1.name,
+                    productMimeType1: productFileData1.type,
+                    
+                    productFile2: productFileData2 ? productFileData2.base64 : '',
+                    productFileName2: productFileData2 ? productFileData2.name : '',
+                    productMimeType2: productFileData2 ? productFileData2.type : '',
+                    
+                    slipFile: slipFileData.base64,
+                    slipFileName: slipFileData.name,
+                    slipMimeType: slipFileData.type
+                };
+    
+                console.log('Sending payload:', payload); // Debug
+    
+                const response = await fetch(scriptURL, { 
+                    method: 'POST', 
+                    body: JSON.stringify(payload) 
+                });
+    
+                const result = await response.json();
+                loadingOverlay.style.display = 'none';
+                closePaymentModal();
+    
+                if (result.result === 'success') {
+                    Swal.fire({
+                        title: 'จองเสร็จสิ้น!',
+                        text: selectedPairs === 2 ? 
+                            'ขอบคุณสำหรับการจอง 2 คู่ ได้รับส่วนลด 10%!' : 
+                            'ข้อมูลถูกบันทึกเรียบร้อยแล้ว',
+                        icon: 'success',
+                        confirmButtonText: 'ตกลง',
+                        confirmButtonColor: '#ff6b95'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "index.html";
+                        }
+                    });
+                } else {
+                    throw new Error(result.error || 'เกิดข้อผิดพลาดที่ server');
+                }
+    
+            } catch (error) {
+                console.error('Error:', error);
+                loadingOverlay.style.display = 'none';
+                Swal.fire({
+                    icon: 'error',
+                    title: ' เกิดข้อผิดพลาด',
+                    text: error.message,
+                    confirmButtonColor: '#ff6b95'
+                });
+            } finally {
+                btn.innerHTML = "✅ ยืนยันและส่งข้อมูล";
+                btn.disabled = false;
+            }
+        });
+    
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateTotal();
+            
+            // Set min date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.querySelector('[name="pickup_date"]').setAttribute('min', today);
+            document.querySelector('[name="return_date"]').setAttribute('min', today);
+        });
+    </script>
+</body>
+</html>
