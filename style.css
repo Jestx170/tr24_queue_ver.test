@@ -1771,7 +1771,7 @@ header {
     }
 
     /* Extra small phones */
-    @media (max-width: 360px) {
+    /* @media (max-width: 360px) {
         body {
             padding: 8px;
             padding-top: 55px;
@@ -1788,5 +1788,5 @@ header {
         .total-price-box .price-text {
             font-size: 28px;
         }
-    }
+    } */
 
