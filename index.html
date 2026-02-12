@@ -1,119 +1,127 @@
 <!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Shoe Service</title>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-   
-</head>
-<body>
-    <!-- Floating Shoe Prints Background -->
-    <div class="shoe-prints-bg">
-        <i class="ph-fill ph-sneaker shoe-print"></i>
-        <i class="ph-fill ph-sneaker-move shoe-print"></i>
-        <i class="ph-fill ph-sneaker shoe-print"></i>
-        <i class="ph-fill ph-sneaker-move shoe-print"></i>
-        <i class="ph-fill ph-sneaker shoe-print"></i>
-        <i class="ph-fill ph-sneaker-move shoe-print"></i>
-    </div>
 
-    <!-- Grid Pattern Overlay -->
-    <div class="grid-overlay"></div>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TR Hoopers - Premium Shoe Care</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#141414",
+                        "background-light": "#f7f7f7",
+                        "background-dark": "#191919",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-white font-display">
+<div class="relative flex min-h-screen w-full flex-col max-w-md mx-auto bg-primary overflow-x-hidden border-x border-white/5 shadow-2xl">
+<!-- Header -->
+<header class="flex items-center justify-between px-6 py-8">
+<div class="flex flex-col">
+<h1 class="text-3xl font-extrabold tracking-tighter">TR</h1>
+<p class="text-[10px] uppercase tracking-[0.3em] text-white/40 font-medium">Hoopers Specialities</p>
+</div>
 
-    <!-- Bubbles Container -->
-    <div class="bubbles-container">
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-    </div>
-
-    <div class="container dashboard-container">
-        <!-- Shoe Decorations -->
-        <i class="ph-fill ph-sneaker shoe-decoration left"></i>
-        <i class="ph-fill ph-sneaker-move shoe-decoration right"></i>
-
-        <header>
-            <img width="200" height="150" src="image/TR-removebg-preview.png" alt="TR Service" class="header-logo">
-            <p class="welcome-text">ยินดีต้อนรับสู่บริการซักรองเท้า</p>
-        </header>
-
-        <!-- Service Highlights
-        <div class="service-highlights">
-            <div class="highlight-item">
-                <i class="ph-fill ph-droplet"></i>
-                <div class="highlight-title">ซักสะอาด</div>
-                <div class="highlight-desc">Deep Clean</div>
-            </div>
-            <div class="highlight-item">
-                <i class="ph-fill ph-shield-check"></i>
-                <div class="highlight-title">ดูแลอย่างดี</div>
-                <div class="highlight-desc">Premium Care</div>
-            </div>
-            <div class="highlight-item">
-                <i class="ph-fill ph-clock"></i>
-                <div class="highlight-title">รวดเร็ว</div>
-                <div class="highlight-desc">Fast Service</div>
-            </div>
-        </div> -->
-
-<!-- Valentine's Day Promo Banner -->
-<a href="bookingLove.html" class="promo-link-wrapper">
-    <div class="promo-banner valentine-promo">
-        <div class="hearts-bg">
-            <span class="heart">💕</span>
-            <span class="heart">💖</span>
-            <span class="heart">💗</span>
-            <span class="heart">❤️</span>
-            <span class="heart">💝</span>
-        </div>
-        <div class="promo-content">
-            <div class="promo-badge">Valentine's Special</div>
-            <div class="promo-title">💘 โปรโมชั่นวาเลนไทน์ 💘</div>
-            <div class="promo-highlight">ซัก 2 คู่ ลดพิเศษ 10%</div>
-            <div class="promo-desc">มอบความสะอาดให้รองเท้าคู่โปรด พร้อมกับความรัก</div>
-            <div class="promo-date">📅 14-15 ก.พ. 2026</div>
-        </div>
-    </div>
+</header>
+<!-- Hero Section -->
+<div class="px-6 pb-8">
+<div class="relative w-full h-80 rounded-xl overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent z-10"></div>
+<img alt="Hero Shoe Image" class="w-full h-full object-cover grayscale brightness-75 transition-transform duration-700 group-hover:scale-110" data-alt="Premium clean white sneaker close up showcase" src="image/ดำและชมพู halftone โปรโมชั่น วาเลนไทน์ Instagram โพสต์.png"/>
+<div class="absolute bottom-6 left-6 z-20">
+<!-- <span class="inline-block px-3 py-1 bg-white text-primary text-[10px] font-bold tracking-widest uppercase mb-3">Premium Care</span> -->
+<h2 class="text-3xl font-bold leading-none tracking-tight">-10% <br/>Valentine</h2>
+</div>
+</div>
+</div>
+<!-- Main Action Cards -->
+<main class="flex-1 px-6 space-y-4">
+<!-- Booking Service Card -->
+<a class="group relative flex flex-col justify-between p-6 h-48 rounded-xl bg-[#212121] border border-white/5 transition-all duration-300 hover:bg-[#2a2a2a] hover:border-white/20" href="booking.html">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="text-2xl font-bold mb-1">จองคิวซัก</span>
+<span class="text-sm font-medium text-white/50 tracking-wide uppercase">Booking Service</span>
+</div>
+<div class="p-3 bg-white text-primary rounded-lg transition-transform duration-300 group-hover:scale-110">
+<span class="material-symbols-outlined text-2xl">calendar_add_on</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/30 group-hover:text-white transition-colors">
+                    Explore services
+                    <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</div>
 </a>
+<!-- Track Status Card -->
+<a class="group relative flex flex-col justify-between p-6 h-48 rounded-xl bg-[#212121] border border-white/5 transition-all duration-300 hover:bg-[#2a2a2a] hover:border-white/20" href="traking.html">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="text-2xl font-bold mb-1">ติดตามสถานะ</span>
+<span class="text-sm font-medium text-white/50 tracking-wide uppercase">Track Status</span>
+</div>
+<div class="p-3 bg-white/10 text-white rounded-lg transition-transform duration-300 group-hover:bg-white group-hover:text-primary">
+<span class="material-symbols-outlined text-2xl">package_2</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/30 group-hover:text-white transition-colors">
+                    Check your order
+                    <span class="material-symbols-outlined text-xs">arrow_forward</span>
+</div>
+</a>
+</main>
+<!-- Footer Contact Info -->
+<footer class="mt-12 px-6 pb-10">
+<div class="border-t border-white/10 pt-8 flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<p class="text-[10px] text-white/40 uppercase tracking-widest mb-1">Contact Us</p>
+<a class="text-lg font-bold hover:text-white/80" href="tel:0619680574">061-968-0574</a>
+</div>
+<div class="flex flex-col text-right">
+<p class="text-[10px] text-white/40 uppercase tracking-widest mb-1">Instagram</p>
+<a class="text-lg font-bold hover:text-white/80" href="https://instagram.com/totherim_24">@totherim_24</a>
+</div>
+</div>
+<div class="flex justify-center pt-4">
+<p class="text-[9px] text-white/20 uppercase tracking-[0.5em] text-center">Hoopers Specialties Store © 2024</p>
+</div>
+</div>
+</footer>
+<!-- Bottom Navigation Bar -->
 
-
-        <!-- Main Menu -->
-        <div class="menu-grid">
-            <a href="booking.html" class="menu-card">
-                <div class="icon-box">
-                    <i class="ph-fill ph-calendar-plus"></i>
-                </div>
-                <h3>จองคิวซัก</h3>
-                <p>Booking Service</p>
-            </a>
-
-            <a href="traking.html" class="menu-card">
-                <div class="icon-box">
-                    <i class="ph-fill ph-magnifying-glass"></i>
-                </div>
-                <h3>ติดตามสถานะ</h3>
-                <p>Tracking</p>
-            </a>
-        </div>
-
-        <!-- Contact Info -->
-        <div class="contact-info">
-            <p class="contact-title">ติดต่อเรา</p>
-            <p>
-                <i class="ph-fill ph-phone"></i>
-                061-968-0574
-            </p>
-            <p>
-                <i class="ph-fill ph-instagram-logo"></i>
-                totherim_24
-            </p>
-        </div>
-    </div>
-
-</body>
-</html>
+</div>
+</body></html>
