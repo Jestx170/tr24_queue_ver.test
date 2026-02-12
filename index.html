@@ -1,341 +1,190 @@
 <!DOCTYPE html>
-<html lang="th">
+<html class="dark" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking - Minimal B&W</title>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>TR Hoopers - Premium Shoe Care</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <style>
+        /* --- 1. แผงควบคุม (แก้ไขตรงนี้ที่เดียว) --- */
+        :root {
+            /* โทนสีหลัก (Colors) */
+            --bg-main: #141414;        /* สีพื้นหลังหลัก */
+            --bg-card: #212121;        /* สีพื้นหลังการ์ด */
+            --bg-card-hover: #2a2a2a;  /* สีการ์ดตอนเอาเมาส์ชี้ */
+            
+            --text-primary: #ffffff;   /* สีตัวหนังสือหลัก */
+            --text-muted: rgba(255, 255, 255, 0.5); /* สีตัวหนังสือรอง (จางๆ) */
+            --border-color: rgba(255, 255, 255, 0.1); /* สีเส้นขอบ */
+
+            /* ขนาด (Sizes) */
+            --card-height: 13rem;      /* ความสูงของการ์ดเมนู */
+            --radius-lg: 0.75rem;      /* ความโค้งมนของมุม */
+        }
+
+        /* --- 2. การตั้งค่า Tailwind ให้ใช้ตัวแปรด้านบน --- */
+        /* ส่วนนี้ไม่ต้องแก้ */
+    </style>
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "var(--bg-main)", 
+                        "background-dark": "var(--bg-main)",
+                        "background-light": "#f7f7f7",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+
+    <style>
+        /* --- 3. CUSTOM CSS --- */
+        body {
+            font-family: 'Manrope', sans-serif;
+            min-height: max(884px, 100dvh);
+            background-color: var(--bg-main); /* ใช้ตัวแปร */
+            color: var(--text-primary);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .main-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: var(--radius-lg);
+            background-color: var(--bg-card); /* ใช้ตัวแปร */
+            border: 1px solid var(--border-color);
+            transition: all 300s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 2rem 1.5rem;
+            height: var(--card-height); /* ใช้ตัวแปร */
+        }
+
+        .main-card:hover {
+            background-color: var(--bg-card-hover); /* ใช้ตัวแปร */
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px); /* เพิ่มลูกเล่นขยับนิดหน่อย */
+        }
+
+        .nav-item-active {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-item-inactive {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            color: var(--text-muted);
+            transition: color 300ms;
+        }
+
+        .nav-item-inactive:hover {
+            color: var(--text-primary);
+        }
+    </style>
 </head>
-<body>
-   <a href="index.html" class="back-link-float">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>หน้าหลัก</span>
-</a>
 
-<style>
-.back-link-float {
-    position: fixed; /* ใช้ fixed เพื่อให้ติดหน้าจอแม้ไถหน้าลงมา */
-    top: 20px;
-    left: 20px;
-    background: rgba(255, 255, 255, 0.8); /* พื้นหลังจางๆ ให้เห็นง่ายขึ้น */
-    padding: 8px 12px;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    text-decoration: none;
-    color: #000;
-    font-weight: 500;
-    font-size: 14px;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    z-index: 9999;
-}
-.back-link-float:hover {
-    background: #000;
-    color: #fff;
-}
-</style>
-
-    <div class="container">
-        <header>
-            <img width="200" height="150" src="image/TR.png" alt="Shoe Service Logo" class="header-logo">
-            <p style="color:#666; font-size:14px;">จองคิวซักรองเท้า</p>
+<body class="bg-primary text-white font-display">
+    
+    <div class="relative flex min-h-screen w-full flex-col max-w-md mx-auto bg-primary overflow-x-hidden border-x border-white/5 shadow-2xl">
+        
+        <header class="flex items-center justify-between px-6 py-8">
+            <div class="flex flex-col">
+                <h1 class="text-3xl font-extrabold tracking-tighter">TR</h1>
+                <p class="text-[10px] uppercase tracking-[0.3em] text-white/40 font-medium">Hoopers Specialities</p>
+            </div>
         </header>
 
-        <form id="bookingForm">
-            <div class="row1">
-                <!-- <div class="form-group">
-                    <label>ชื่อ (Name)</label>
-                    <input type="text" name="name" required>
-                </div> -->
-                <div class="form-group">
-                    <label>เบอร์โทร (Phone)</label>
-                    <input type="tel" name="phone" required>
+        <<div class="px-6 pb-8">
+            <a href="booking.html" class="block relative w-full h-80 rounded-xl overflow-hidden group cursor-pointer">
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent z-10"></div>
+                
+                <img alt="Hero Shoe Image" 
+                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                     src="image/ดำและชมพู halftone โปรโมชั่น วาเลนไทน์ Instagram โพสต์.png"/>
+                
+                <div class="absolute bottom-6 left-6 z-20">
+                    <h2 class="font-bold leading-none tracking-tight text-4xl drop-shadow-lg"> - 10% <br/>Valentine</h2>
                 </div>
-            </div>
-
-            <hr>
-
-            <div class="form-group">
-                <label>ประเภทรองเท้า (Shoe Type)</label>
-                <select name="shoe_type" id="shoeType" required onchange="calculateTotal()">
-                <!-- <select name="shoe_type" required> -->
-                    <option value="">-- กรุณาเลือก --</option>
-                    <option value="basketball">ร้องเท้าบาส (basketball shoes)</option>
-                    <option value="sneakers">ร้องเท้าผ้าใบ (Sneakers)</option>
-                    <option value="Suede sneakers">ร้องเท้าผ้าใบหนังกลับ (Suede sneakers)</option>
-                    <option value="Nubuck">ร้องเท้าหนังนูบัค (Nubuck leather shoes)</option>
-                    <option value="boots">ร้องเท้าหนัง (leather)</option>
-                    <option value="sandals">รองเท้าแตะ (Sandals)</option>
-                    <option value="other">อื่นๆ (Other)</option>
-                    
-                </select>
-            </div>
-            
-
-            <div class="row">
-                <div class="form-group">
-                    <label>แบรนด์ (Brand)</label>
-                    <input type="text" name="brand" placeholder="เช่น Nike, Adidas, Unbrand" required>
-                </div>
-                <div class="form-group">
-                    <label>ชื่อรุ่น (Model) <span style="font-weight:300; color:#999;">(ไม่บังคับ)</span></label>
-                    <input type="text" name="model" placeholder="ระบุรุ่น (ถ้าทราบ)">
-                </div>
-            </div>
-
-            <hr>
-
-            <div class="row">
-                <div class="form-group">
-                    <label>วันรับรองเท้า </label>
-                    <input type="date" name="pickup_date" required>
-                </div>
-                <div class="form-group">
-                    <label>วันคืนรองเท้า *ขั้นต่ำ 3 วัน</label>
-                    <input type="date" name="return_date" required>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>ที่อยู่ / Google Maps (Address)</label>
-                <textarea name="address" rows="3" placeholder="แปะลิงก์ Google Maps หรือที่อยู่จัดส่ง..." required></textarea>
-            </div>
-
-           <!-- <div class="form-group">
-                <label>Member ID</label>
-                <input type="text" name="member_id" placeholder='ถ้าไม่มี ให้พิมพ์ "ไม่มี"'>
-            </div> -->
-
-            <div class="form-group">
-                <label>Note / หมายเหตุเพิ่มเติม</label>
-                <textarea name="note" rows="2" placeholder="เช่น ขอสะอาดๆ, งานด่วน (Extra Charge)"></textarea>
-            </div>
-            
-            <div class="form-group" style="text-align: left; margin-top: 20px;">
-                <label>แนปรูปของที่จะให้ไปรับครับ/คะ</label>
-                <input type="file" id="Product pictures" accept="image/*" required>
-                <p class="note-text">*ไฟล์จะถูกเก็บไว้ใน Google Drive ของร้าน</p>
-            </div>
-
-            
-        <hr>
-<div class="addon-section">
-    <h3 style="font-size:16px; margin-bottom:15px;">บริการเพิ่มเติม (Add-on Services)</h3>
-    
-    <div class="form-group">
-        <label>ระดับความด่วน (Service Speed)</label>
-        <div class="radio-group">
-            <label class="radio-item">
-                <input type="radio" name="service_speed" value="0" checked onchange="calculateTotal()">
-                ปกติ (Standard) <span class="price">+0.-</span>
-            </label>
-            <label class="radio-item">
-                <input type="radio" name="service_speed" value="89" onchange="calculateTotal()">
-                ด่วน 1-2 วัน (Fast Track) <span class="price">+89.-</span>
-            </label>
-            <label class="radio-item">
-                <input type="radio" name="service_speed" value="129" onchange="calculateTotal()">
-                ด่วนพิเศษ 1 วัน (Super Fast) <span class="price">+129.-</span>
-            </label>
+            </a>
         </div>
+
+        <main class="flex-1 px-6 space-y-4">
+            
+            <a class="group relative main-card" href="booking.html">
+                <div class="flex justify-between items-start">
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-bold mb-1">จองคิวซัก</span>
+                        <span class="text-sm font-medium text-white/50 tracking-wide uppercase">Booking Service</span>
+                    </div>
+                    <div class="p-3 bg-white text-primary rounded-lg transition-transform duration-300 group-hover:scale-110">
+                        <span class="material-symbols-outlined text-2xl">calendar_add_on</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/30 group-hover:text-white transition-colors">
+                    Explore services
+                    <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </div>
+            </a>
+
+            <a class="group relative main-card" href="traking.html">
+                <div class="flex justify-between items-start">
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-bold mb-1">ติดตามสถานะ</span>
+                        <span class="text-sm font-medium text-white/50 tracking-wide uppercase">Track Status</span>
+                    </div>
+                    <div class="p-3 bg-white/10 text-white rounded-lg transition-transform duration-300 group-hover:bg-white group-hover:text-primary">
+                        <span class="material-symbols-outlined text-2xl">local_shipping</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-white/30 group-hover:text-white transition-colors">
+                    Check your order
+                    <span class="material-symbols-outlined text-xs">local_shipping</span>
+                </div>
+            </a>
+
+        </main>
+
+        <footer class="mt-12 px-6 pb-10">
+            <div class="border-t border-white/10 pt-8 flex flex-col gap-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex flex-col">
+                        <p class="text-[10px] text-white/40 uppercase tracking-widest mb-1">Contact Us</p>
+                        <a class="text-lg font-bold hover:text-white/80" href="tel:0619680574">061-968-0574</a>
+                    </div>
+                    <div class="flex flex-col text-right">
+                        <p class="text-[10px] text-white/40 uppercase tracking-widest mb-1">Instagram</p>
+                        <a class="text-lg font-bold hover:text-white/80" href="https://instagram.com/totherim_24">@totherim_24</a>
+                    </div>
+                </div>
+                <div class="flex justify-center pt-4">
+                    <p class="text-[9px] text-white/20 uppercase tracking-[0.5em] text-center">Hoopers Specialties Store © 2026</p>
+                </div>
+            </div>
+        </footer>
+
+
     </div>
-
-    <div class="form-group">
-        <label>บริการพิเศษ (Extra Care)</label>
-        <div class="checkbox-group">
-            <label class="checkbox-item">
-                <input type="checkbox" id="chk_yellow" value="299" onchange="calculateTotal()">
-                แก้พื้นเหลือง (Un-Yellowing) <span class="price">+299.-</span>
-            </label>
-            <label class="checkbox-item">
-                <input type="checkbox" id="chk_ozone" value="159" onchange="calculateTotal()">
-                อบโอโซนฆ่าเชื้อ (Ozone) <span class="price">+159.-</span>
-            </label>
-        </div>
-    </div>
-
-    <div class="total-price-box">
-        <span>ราคารวมทั้งสิ้น (Total)</span>
-        <span class="price-text" id="displayTotal">189</span>
-        <span style="font-size:18px;">บาท</span>
-    </div>
-</div>
-<div id="paymentModal" class="modal">
-    <div class="modal-content">
-        <h3>ชำระเงิน (Payment)</h3>
-        <p>กรุณาสแกน QR Code เพื่อชำระค่าบริการ</p>
-        
-        <img width="230" src="image/ชำระเงิน.png" alt="PromptPay QR" class="qr-img">
-        
-        <div class="form-group" style="text-align: left; margin-top: 20px;">
-            <label>แนบสลิปโอนเงิน (Upload Slip)</label>
-            <input type="file" id="slipFile" accept="image/*" required>
-            <p class="note-text">*ไฟล์จะถูกเก็บไว้ใน Google Drive ของร้าน</p>
-        </div>
-        <button type="submit" id="finalSubmit" class="btn-submit">ยืนยันและส่งข้อมูล</button>
-    </div>
-</div>
-        </form>
-    </div>
-<div id="loadingOverlay" class="loading-overlay" style="display: none;">
-    <div class="spinner-box">
-        <div class="spinner"></div>
-        <p>กำลังดำเนินการ...</p>
-        <p style="font-size: 12px; color: #aaa;">กรุณารอสักครู่ อย่าปิดหน้าต่าง</p>
-    </div>
-</div>
-<script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzBGeUyxoLj_leLMDE1rjqUtqP9k4_mTXo46XRaLzT2mqCiZqOX4cUXza-6ML0OfNg/exec';
-
-    const form = document.getElementById('bookingForm');
-    const btn = document.getElementById('finalSubmit');
-    const loadingOverlay = document.getElementById('loadingOverlay'); // ประกาศตัวแปร Overlay
-
-    function calculateTotal() {
-        let total = 189; 
-        const shoeType = document.getElementById('shoeType').value;
-        
-        if (shoeType === 'Suede sneakers') total += 100;
-        if (shoeType === 'sandals') total -= 110;
-
-        const speedRadios = document.getElementsByName('service_speed');
-        for (const radio of speedRadios) {
-            if (radio.checked) {
-                total += parseInt(radio.value);
-                break; 
-            }
-        }
-
-        const chkYellow = document.getElementById('chk_yellow');
-        const chkOzone = document.getElementById('chk_ozone');
-        if (chkYellow && chkYellow.checked) total += 299;
-        if (chkOzone && chkOzone.checked) total += 129;
-
-        const displayTotal = document.getElementById('displayTotal');
-        if(displayTotal) displayTotal.innerText = total.toLocaleString();
-        
-        return total;
-    }
-
-   form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-    }
-
-    // 1. เปิดหน้าจอ Loading และปิดปุ่ม
-    btn.innerHTML = "กำลังอัปโหลด...";
-    btn.disabled = true;
-    loadingOverlay.style.display = 'flex'; // สั่งโชว์ Loading Overlay ที่สร้างไว้
-
-    const toBase64 = file => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve({
-            base64: reader.result.split(',')[1],
-            name: file.name,
-            type: file.type
-        });
-        reader.onerror = error => reject(error);
-    });
-
-   try {
-        const productInput = document.getElementById('Product pictures');
-        const slipInput = document.querySelector('#paymentModal input[type="file"]');
-
-        if (!productInput.files[0] || !slipInput.files[0]) {
-            alert("กรุณาแนบทั้งรูปสินค้าและสลิปโอนเงิน");
-            // ถ้าไม่แนบไฟล์ ต้องปิด Loading กลับมาเหมือนเดิมเพื่อให้กดใหม่ได้
-            loadingOverlay.style.display = 'none';
-            btn.innerHTML = "ยืนยันและส่งข้อมูล";
-            btn.disabled = false;
-            return;
-        }
-
-        const productFileData = await toBase64(productInput.files[0]);
-        const slipFileData = await toBase64(slipInput.files[0]);
-
-        // Step 1: ดึงข้อความระดับความด่วน
-        const speedRadio = document.querySelector('input[name="service_speed"]:checked');
-        let serviceSpeedText = "ปกติ (Standard)";
-        if (speedRadio) {
-            serviceSpeedText = speedRadio.parentElement.innerText.replace(/\s+/g, ' ').trim();
-        }
-
-        // Step 2: ดึงรายการบริการพิเศษ (Add-ons)
-        let addons = [];
-        const chkYellow = document.getElementById('chk_yellow');
-        const chkOzone = document.getElementById('chk_ozone');
-
-        if (chkYellow && chkYellow.checked) addons.push("แก้พื้นเหลือง (Un-Yellowing)");
-        if (chkOzone && chkOzone.checked) addons.push("อบโอโซนฆ่าเชื้อ (Ozone)");
-        
-        const addonsText = addons.length > 0 ? addons.join(", ") : "-";
-
-        const payload = {
-            phone: form.phone.value,
-            shoe_type: form.shoe_type.value,
-            brand: form.brand.value,
-            model: form.model.value,
-            pickup_date: form.pickup_date.value,
-            return_date: form.return_date.value,
-            address: form.address.value,
-            note: form.note.value,
-            service_speed: serviceSpeedText,
-            addon_services: addonsText,
-            total_price: calculateTotal(),
-            productFile: productFileData.base64,
-            productFileName: productFileData.name,
-            productMimeType: productFileData.type,
-            slipFile: slipFileData.base64,
-            slipFileName: slipFileData.name,
-            slipMimeType: slipFileData.type
-        };
-
-        const response = await fetch(scriptURL, { 
-            method: 'POST', 
-            body: JSON.stringify(payload) 
-        });
-
-        const result = await response.json();
-
-        // เมื่อได้ผลลัพธ์แล้ว ให้ปิด Loading ก่อนจะโชว์ Alert
-        loadingOverlay.style.display = 'none';
-
-        if (result.result === 'success') {
-            Swal.fire({
-                title: 'จองเสร็จสิ้น!',
-                text: 'ข้อมูลและรูปภาพถูกบันทึกเรียบร้อยแล้ว',
-                icon: 'success',
-                confirmButtonText: 'ตกลง',
-                confirmButtonColor: '#000'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "index.html";
-                }
-            });
-        } else {
-            throw new Error(result.error);
-        }
-
-    } catch (error) {
-        console.error(error);
-        loadingOverlay.style.display = 'none'; // ปิด Loading เมื่อ Error
-        Swal.fire({
-            icon: 'error',
-            title: 'เกิดข้อผิดพลาด',
-            text: error.message
-        });
-    } finally {
-        // คืนค่าปุ่มให้กดได้อีกครั้ง (เผื่อกรณี Error แล้วอยากกดส่งใหม่)
-        btn.innerHTML = "ยืนยันและส่งข้อมูล";
-        btn.disabled = false;
-    }
-});
-</script>
+</body>
+</html>
